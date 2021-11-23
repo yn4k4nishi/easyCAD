@@ -18,6 +18,7 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/app.cpp
     src/frame.cpp
+    src/gl_plane.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})

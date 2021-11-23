@@ -6,8 +6,8 @@
 class GLPlane : public wxGLCanvas {
     wxGLContext*	m_context;
 public:
-	BasicGLPane(wxFrame* parent, int* args);
-	virtual ~BasicGLPane();
+	GLPane(wxFrame* parent, int* args);
+	virtual ~GLPane();
     
 	void resized(wxSizeEvent& evt);
     
@@ -29,4 +29,4 @@ public:
 	void keyReleased(wxKeyEvent& event);
     
 	DECLARE_EVENT_TABLE()
-}
+};

@@ -1,5 +1,13 @@
 #include "gl_plane.hpp"
 
+// Vertices and faces of a simple cube to demonstrate 3D render
+// source: http://www.opengl.org/resources/code/samples/glut_examples/examples/cube.c
+GLfloat v[8][3];
+GLint faces[6][4] = {  /* Vertex indices for the 6 faces of a cube. */
+    {0, 1, 2, 3}, {3, 2, 6, 7}, {7, 6, 5, 4},
+    {4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3} };
+
+
 GLPane::GLPane(wxFrame* parent, int* args) :
     wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE){
 	m_context = new wxGLContext(this);
