@@ -4,6 +4,8 @@
 MyFrame::MyFrame(const wxString& title) : wxFrame(NULL, wxID_ANY, title) {
     // SetIcon(wxICON(sample));
 
+    wxWindow::SetSize(wxSize(1200,800));
+
 #if wxUSE_MENUBAR
     // create a menu bar
     wxMenu *fileMenu = new wxMenu;
