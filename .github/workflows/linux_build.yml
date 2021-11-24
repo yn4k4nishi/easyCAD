@@ -11,4 +11,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git clone --recurse-submodules https://github.com/wxWidgets/wxWidgets.git
-          ls
+          cd wxWidgets
+          mkdir buildgtk && cd buildgtk
+          ../configure --with-gtk
+          make
+          sudo make install
+          sudo ldconfig
