@@ -99,31 +99,9 @@ void GLPanel::render( wxPaintEvent& evt ){
     wxPaintDC(this); // only to be used in paint events. use wxClientDC to paint outside the paint event
 	
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-    // ------------- draw some 2D ----------------
-    // prepare2DViewport(0,0,getWidth()/2, getHeight());
-    // glLoadIdentity();
-	
-    // // white background
-    // glColor4f(1, 1, 1, 1);
-    // glBegin(GL_QUADS);
-    // glVertex3f(0,0,0);
-    // glVertex3f(getWidth(),0,0);
-    // glVertex3f(getWidth(),getHeight(),0);
-    // glVertex3f(0,getHeight(),0);
-    // glEnd();
-	
-    // // red square
-    // glColor4f(1, 0, 0, 1);
-    // glBegin(GL_QUADS);
-    // glVertex3f(getWidth()/8, getHeight()/3, 0);
-    // glVertex3f(getWidth()*3/8, getHeight()/3, 0);
-    // glVertex3f(getWidth()*3/8, getHeight()*2/3, 0);
-    // glVertex3f(getWidth()/8, getHeight()*2/3, 0);
-    // glEnd();
     
     // ------------- draw some 3D ----------------
-    prepare3DViewport(getWidth()/2,0,getWidth(), getHeight());
+    prepare3DViewport(0,0,getWidth(), getHeight());
     glLoadIdentity();
 	
     glColor4f(0,0,1,1);
