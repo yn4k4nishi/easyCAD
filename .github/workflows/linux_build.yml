@@ -9,6 +9,6 @@ jobs:
       - name: Install wxWidgets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
+        run: |
           git clone --recurse-submodules https://github.com/wxWidgets/wxWidgets.git
           ls
