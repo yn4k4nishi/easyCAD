@@ -8,7 +8,7 @@ GLint faces[6][4] = {  /* Vertex indices for the 6 faces of a cube. */
     {4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3} };
 
 
-GLPane::GLPane(wxFrame* parent, int* args) :
+GLPlane::GLPlane(wxFrame* parent, int* args) :
     wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE){
 	m_context = new wxGLContext(this);
     // prepare a simple cube to demonstrate 3D render
@@ -24,17 +24,17 @@ GLPane::GLPane(wxFrame* parent, int* args) :
     SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 }
  
-GLPane::~GLPane(){
+GLPlane::~GLPlane(){
 	delete m_context;
 }
 
-void GLPane::resized(wxSizeEvent& evt){
+void GLPlane::resized(wxSizeEvent& evt){
     // wxGLCanvas::OnSize(evt);	
     Refresh();
 }
  
 /** Inits the OpenGL viewport for drawing in 3D. */
-void GLPane::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
+void GLPlane::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
     glClearDepth(1.0f);	// Depth Buffer Setup
@@ -56,7 +56,7 @@ void GLPane::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, 
 }
  
 /** Inits the OpenGL viewport for drawing in 2D. */
-void GLPane::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
+void GLPlane::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
     glEnable(GL_TEXTURE_2D);   // textures
     glEnable(GL_COLOR_MATERIAL);
@@ -73,16 +73,16 @@ void GLPane::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x, 
     glLoadIdentity();
 }
  
-int GLPane::getWidth(){
+int GLPlane::getWidth(){
     return GetSize().x;
 }
  
-int GLPane::getHeight(){
+int GLPlane::getHeight(){
     return GetSize().y;
 }
  
  
-void GLPane::render( wxPaintEvent& evt ){
+void GLPlane::render( wxPaintEvent& evt ){
     if(!IsShown()) return;
     
     wxGLCanvas::SetCurrent(*m_context);

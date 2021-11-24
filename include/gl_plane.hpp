@@ -3,11 +3,14 @@
 #include "wx/wx.h"
 #include "wx/glcanvas.h"
 
+#include <GL/glu.h>
+#include <GL/gl.h>
+
 class GLPlane : public wxGLCanvas {
-    wxGLContext*	m_context;
+    wxGLContext* m_context;
 public:
-	GLPane(wxFrame* parent, int* args);
-	virtual ~GLPane();
+	GLPlane(wxFrame* parent, int* args);
+	virtual ~GLPlane();
     
 	void resized(wxSizeEvent& evt);
     

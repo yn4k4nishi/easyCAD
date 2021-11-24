@@ -1,5 +1,6 @@
 #include "app.hpp"
 #include "frame.hpp"
+#include "gl_plane.hpp"
 #include "wx/sizer.h"
 
 bool MyApp::OnInit(){
