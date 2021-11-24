@@ -1,10 +1,6 @@
 name: Linux Build
 
-on:
-  push:
-    branches:
-      - main
-      - dev
+on: push
 
 jobs: 
   linux-build:
