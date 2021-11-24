@@ -1,6 +1,6 @@
 #include "app.hpp"
 #include "frame.hpp"
-#include "gl_plane.hpp"
+#include "gl_panel.hpp"
 #include "wx/sizer.h"
 
 bool MyApp::OnInit(){
@@ -11,7 +11,7 @@ bool MyApp::OnInit(){
 
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 
-    GLPlane *glPlane = new GLPlane((wxFrame*)frame, args);
+    GLPanel *glPlane = new GLPanel((wxFrame*)frame, args);
     sizer->Add(glPlane, 1, wxEXPAND);
 
     frame->SetSizer(sizer);

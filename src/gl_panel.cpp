@@ -1,4 +1,14 @@
-#include "gl_plane.hpp"
+#include "gl_panel.hpp"
+
+// some useful events to use
+void GLPanel::mouseMoved(wxMouseEvent& event) {}
+void GLPanel::mouseDown(wxMouseEvent& event) {}
+void GLPanel::mouseWheelMoved(wxMouseEvent& event) {}
+void GLPanel::mouseReleased(wxMouseEvent& event) {}
+void GLPanel::rightClick(wxMouseEvent& event) {}
+void GLPanel::mouseLeftWindow(wxMouseEvent& event) {}
+void GLPanel::keyPressed(wxKeyEvent& event) {}
+void GLPanel::keyReleased(wxKeyEvent& event) {}
 
 // Vertices and faces of a simple cube to demonstrate 3D render
 // source: http://www.opengl.org/resources/code/samples/glut_examples/examples/cube.c
@@ -8,7 +18,7 @@ GLint faces[6][4] = {  /* Vertex indices for the 6 faces of a cube. */
     {4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3} };
 
 
-GLPlane::GLPlane(wxFrame* parent, int* args) :
+GLPanel::GLPanel(wxFrame* parent, int* args) :
     wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE){
 	m_context = new wxGLContext(this);
     // prepare a simple cube to demonstrate 3D render
@@ -24,17 +34,17 @@ GLPlane::GLPlane(wxFrame* parent, int* args) :
     SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 }
  
-GLPlane::~GLPlane(){
+GLPanel::~GLPanel(){
 	delete m_context;
 }
 
-void GLPlane::resized(wxSizeEvent& evt){
+void GLPanel::resized(wxSizeEvent& evt){
     // wxGLCanvas::OnSize(evt);	
     Refresh();
 }
  
 /** Inits the OpenGL viewport for drawing in 3D. */
-void GLPlane::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
+void GLPanel::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
     glClearDepth(1.0f);	// Depth Buffer Setup
@@ -56,7 +66,7 @@ void GLPlane::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x,
 }
  
 /** Inits the OpenGL viewport for drawing in 2D. */
-void GLPlane::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
+void GLPanel::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
     glEnable(GL_TEXTURE_2D);   // textures
     glEnable(GL_COLOR_MATERIAL);
@@ -73,16 +83,16 @@ void GLPlane::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x,
     glLoadIdentity();
 }
  
-int GLPlane::getWidth(){
+int GLPanel::getWidth(){
     return GetSize().x;
 }
  
-int GLPlane::getHeight(){
+int GLPanel::getHeight(){
     return GetSize().y;
 }
  
  
-void GLPlane::render( wxPaintEvent& evt ){
+void GLPanel::render( wxPaintEvent& evt ){
     if(!IsShown()) return;
     
     wxGLCanvas::SetCurrent(*m_context);

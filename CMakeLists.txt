@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.16)
 project(easyCAD)
 
-find_package(wxWidgets REQUIRED COMPONENTS net core base)
+find_package(wxWidgets REQUIRED COMPONENTS net core base gl)
 find_package(OpenGL REQUIRED)
 
-if(NOT ${wxWidgets_FOUND})
-    message("package is not found : wxWidgets")
+if(${wxWidgets_FOUND})
+    message("package is found : wxWidgets")
 endif()
 
-if(NOT ${OPENGL_FOUND})
-    message("package is not found : openGL")
+if(${OPENGL_FOUND})
+    message("package is found : openGL")
 endif()
 
 include(${wxWidgets_USE_FILE})
@@ -24,10 +24,12 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/app.cpp
     src/frame.cpp
-    src/gl_plane.cpp
-)
+    src/gl_panel.cpp
+) 
 
 target_link_libraries(${PROJECT_NAME} 
     ${wxWidgets_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )
+
+# set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${wxWidgets_CXX_FLAGS})

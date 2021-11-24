@@ -6,11 +6,11 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
-class GLPlane : public wxGLCanvas {
+class GLPanel : public wxGLCanvas {
     wxGLContext* m_context;
 public:
-	GLPlane(wxFrame* parent, int* args);
-	virtual ~GLPlane();
+	GLPanel(wxFrame* parent, int* args);
+	virtual ~GLPanel();
     
 	void resized(wxSizeEvent& evt);
     
