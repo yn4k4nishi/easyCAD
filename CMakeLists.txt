@@ -31,5 +31,3 @@ target_link_libraries(${PROJECT_NAME}
     ${wxWidgets_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )
-
-# set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${wxWidgets_CXX_FLAGS})
