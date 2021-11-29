@@ -5,7 +5,9 @@ void GLPanel::mouseMoved(wxMouseEvent& event) {}
 void GLPanel::mouseDown(wxMouseEvent& event) {}
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {}
 void GLPanel::mouseReleased(wxMouseEvent& event) {}
-void GLPanel::rightClick(wxMouseEvent& event) {}
+void GLPanel::rightClick(wxMouseEvent& event) {
+    Refresh();
+}
 void GLPanel::mouseLeftWindow(wxMouseEvent& event) {}
 void GLPanel::keyPressed(wxKeyEvent& event) {}
 void GLPanel::keyReleased(wxKeyEvent& event) {}
@@ -61,26 +63,8 @@ void GLPanel::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x,
     float ratio_w_h = (float)(bottomrigth_x-topleft_x)/(float)(bottomrigth_y-topleft_y);
     gluPerspective(45 /*view angle*/, ratio_w_h, 0.1 /*clip close*/, 200 /*clip far*/);
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    // glLoadIdentity();
 	
-}
- 
-/** Inits the OpenGL viewport for drawing in 2D. */
-void GLPanel::prepare2DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
-    glEnable(GL_TEXTURE_2D);   // textures
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_BLEND);
-    glDisable(GL_DEPTH_TEST);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	
-    glViewport(topleft_x, topleft_y, bottomrigth_x-topleft_x, bottomrigth_y-topleft_y);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    
-    gluOrtho2D(topleft_x, bottomrigth_x, bottomrigth_y, topleft_y);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 }
  
 int GLPanel::getWidth(){
@@ -100,13 +84,20 @@ void GLPanel::render( wxPaintEvent& evt ){
 	
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    // ------------- draw some 3D ----------------
+    /*------------- draw some 3D ----------------*/
     prepare3DViewport(0,0,getWidth(), getHeight());
-    glLoadIdentity();
+    // glLoadIdentity();
 	
-    glColor4f(0,0,1,1);
-    glTranslatef(0,0,-5);
-    glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
+    static bool init = true;
+    if(init){
+        glColor4f(0,0,1,1);
+        glTranslatef(0,0,-5);
+        glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
+
+        init = false;
+    } else {
+        glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
+    }
     
     glColor4f(1, 0, 0, 1);
     for (int i = 0; i < 6; i++){
