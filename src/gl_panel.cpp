@@ -3,7 +3,11 @@
 // some useful events to use
 void GLPanel::mouseMoved(wxMouseEvent& event) {}
 void GLPanel::mouseDown(wxMouseEvent& event) {}
-void GLPanel::mouseWheelMoved(wxMouseEvent& event) {}
+void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
+    glMatrixMode(GL_MODELVIEW);
+    glTranslatef(event.GetWheelRotation()/100.0f, 0, 0);
+    Refresh();
+}
 void GLPanel::mouseReleased(wxMouseEvent& event) {}
 void GLPanel::rightClick(wxMouseEvent& event) {
     glMatrixMode(GL_MODELVIEW);

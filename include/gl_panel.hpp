@@ -6,6 +6,8 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
+#include <iostream>
+
 class GLPanel : public wxGLCanvas {
     wxGLContext* m_context;
 public:
