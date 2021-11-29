@@ -46,7 +46,11 @@ void GLPanel::resized(wxSizeEvent& evt){
 }
  
 /** Inits the OpenGL viewport for drawing in 3D. */
-void GLPanel::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
+void GLPanel::init(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y){
+
+    static bool has_init = false;
+
+    if(has_init) return;
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
     glClearDepth(1.0f);	// Depth Buffer Setup
@@ -63,8 +67,13 @@ void GLPanel::prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x,
     float ratio_w_h = (float)(bottomrigth_x-topleft_x)/(float)(bottomrigth_y-topleft_y);
     gluPerspective(45 /*view angle*/, ratio_w_h, 0.1 /*clip close*/, 200 /*clip far*/);
     glMatrixMode(GL_MODELVIEW);
-    // glLoadIdentity();
-	
+    glLoadIdentity();
+
+    glColor4f(0,0,1,1);
+    glTranslatef(0,0,-5);
+    glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
+
+    has_init = true;
 }
  
 int GLPanel::getWidth(){
@@ -84,20 +93,9 @@ void GLPanel::render( wxPaintEvent& evt ){
 	
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    /*------------- draw some 3D ----------------*/
-    prepare3DViewport(0,0,getWidth(), getHeight());
-    // glLoadIdentity();
-	
-    static bool init = true;
-    if(init){
-        glColor4f(0,0,1,1);
-        glTranslatef(0,0,-5);
-        glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
+    init(0,0,getWidth(), getHeight());
 
-        init = false;
-    } else {
-        glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
-    }
+    glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
     
     glColor4f(1, 0, 0, 1);
     for (int i = 0; i < 6; i++){

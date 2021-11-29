@@ -18,7 +18,7 @@ public:
 	int getHeight();
     
 	void render(wxPaintEvent& evt);
-	void prepare3DViewport(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y);
+	void init(int topleft_x, int topleft_y, int bottomrigth_x, int bottomrigth_y);
     
 	// events
 	void mouseMoved(wxMouseEvent& event);
