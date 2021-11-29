@@ -6,6 +6,8 @@ void GLPanel::mouseDown(wxMouseEvent& event) {}
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {}
 void GLPanel::mouseReleased(wxMouseEvent& event) {}
 void GLPanel::rightClick(wxMouseEvent& event) {
+    glMatrixMode(GL_MODELVIEW);
+    glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
     Refresh();
 }
 void GLPanel::mouseLeftWindow(wxMouseEvent& event) {}
@@ -94,8 +96,6 @@ void GLPanel::render( wxPaintEvent& evt ){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     init(0,0,getWidth(), getHeight());
-
-    glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
     
     glColor4f(1, 0, 0, 1);
     for (int i = 0; i < 6; i++){
