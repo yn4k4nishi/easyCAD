@@ -8,8 +8,6 @@ void GLPanel::mouseDown(wxMouseEvent& event) {
 }
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
 
-    if(abs(event.GetWheelRotation())>100) return;
-
     glMatrixMode(GL_MODELVIEW);
 
     float mat[16];
@@ -29,11 +27,20 @@ void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
 
     float l = sqrt(camera_x*camera_x + camera_y*camera_y + camera_z*camera_z);
 
-    glTranslatef(
-        event.GetWheelRotation()/100.0f * camera_x / l,
-        event.GetWheelRotation()/100.0f * camera_y / l,
-        event.GetWheelRotation()/100.0f * camera_z / l
-    );
+    if(event.GetWheelRotation() > 0){
+        glTranslatef(
+            event.GetWheelDelta()/100.0f * camera_x / l,
+            event.GetWheelDelta()/100.0f * camera_y / l,
+            event.GetWheelDelta()/100.0f * camera_z / l
+        );
+    } else {
+        glTranslatef(
+            - event.GetWheelDelta()/100.0f * camera_x / l,
+            - event.GetWheelDelta()/100.0f * camera_y / l,
+            - event.GetWheelDelta()/100.0f * camera_z / l
+        );
+    }
+
     Refresh();
 }
 void GLPanel::mouseReleased(wxMouseEvent& event) {}
