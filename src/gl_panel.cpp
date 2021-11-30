@@ -5,13 +5,36 @@ void GLPanel::mouseMoved(wxMouseEvent& event) {}
 void GLPanel::mouseDown(wxMouseEvent& event) {}
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
     glMatrixMode(GL_MODELVIEW);
-    glTranslatef(event.GetWheelRotation()/100.0f, 0, 0);
+
+    float mat[16];
+    glGetFloatv(GL_MODELVIEW_MATRIX, mat);
+
+    /*
+        0  4  8 12 
+        1  5  9 13
+        2  6 10 14
+        3  7 11 15
+     */
+    
+    float camera_x, camera_y, camera_z;
+    camera_x = mat[0]*mat[12] + mat[1]*mat[13] + mat[ 2]*mat[14];
+    camera_y = mat[4]*mat[12] + mat[5]*mat[13] + mat[ 6]*mat[14];
+    camera_z = mat[8]*mat[12] + mat[9]*mat[13] + mat[10]*mat[14];
+
+    float l = sqrt(camera_x*camera_x + camera_y*camera_y + camera_z*camera_z);
+
+    glTranslatef(
+        event.GetWheelRotation()/100.0f * camera_x / l,
+        event.GetWheelRotation()/100.0f * camera_y / l,
+        event.GetWheelRotation()/100.0f * camera_z / l
+    );
     Refresh();
 }
 void GLPanel::mouseReleased(wxMouseEvent& event) {}
 void GLPanel::rightClick(wxMouseEvent& event) {
     glMatrixMode(GL_MODELVIEW);
     glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
+
     Refresh();
 }
 void GLPanel::mouseLeftWindow(wxMouseEvent& event) {}
