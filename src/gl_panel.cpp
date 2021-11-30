@@ -2,8 +2,14 @@
 
 // some useful events to use
 void GLPanel::mouseMoved(wxMouseEvent& event) {}
-void GLPanel::mouseDown(wxMouseEvent& event) {}
+void GLPanel::mouseDown(wxMouseEvent& event) {
+    std::cout << event.GetX() << " ";
+    std::cout << event.GetY() << std::endl;
+}
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
+
+    if(abs(event.GetWheelRotation())>100) return;
+
     glMatrixMode(GL_MODELVIEW);
 
     float mat[16];
@@ -38,8 +44,22 @@ void GLPanel::rightClick(wxMouseEvent& event) {
     Refresh();
 }
 void GLPanel::mouseLeftWindow(wxMouseEvent& event) {}
-void GLPanel::keyPressed(wxKeyEvent& event) {}
-void GLPanel::keyReleased(wxKeyEvent& event) {}
+void GLPanel::keyPressed(wxKeyEvent& event) {
+    switch (event.GetKeyCode()){
+    case WXK_SHIFT:
+        press_shift = true;
+        std::cout << "press shift key" << std::endl;
+        break;
+    }
+}
+void GLPanel::keyReleased(wxKeyEvent& event) {
+    switch (event.GetKeyCode()){
+    case WXK_SHIFT:
+        press_shift = false;
+        std::cout << "release shift key" << std::endl;
+        break;
+    }
+}
 
 // Vertices and faces of a simple cube to demonstrate 3D render
 // source: http://www.opengl.org/resources/code/samples/glut_examples/examples/cube.c

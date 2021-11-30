@@ -10,6 +10,9 @@
 
 class GLPanel : public wxGLCanvas {
     wxGLContext* m_context;
+
+	bool press_shift = false;
+
 public:
 	GLPanel(wxFrame* parent, int* args);
 	virtual ~GLPanel();
