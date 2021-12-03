@@ -17,6 +17,8 @@ include(${wxWidgets_USE_FILE})
 include_directories(
     include/
     ${wxWidgets_INCLUDE_DIRS}
+    /usr/local/included/wx-3.1
+    /usr/local/included/wx-3.1/wx
     ${OPENGL_INCLUDE_DIR}
 )
 

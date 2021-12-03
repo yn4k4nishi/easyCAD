@@ -12,6 +12,7 @@ class GLPanel : public wxGLCanvas {
     wxGLContext* m_context;
 
 	bool press_shift = false;
+	bool left_down = false;
 
 public:
 	GLPanel(wxFrame* parent, int* args);

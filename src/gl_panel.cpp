@@ -1,11 +1,33 @@
 #include "gl_panel.hpp"
 
 // some useful events to use
-void GLPanel::mouseMoved(wxMouseEvent& event) {}
-void GLPanel::mouseDown(wxMouseEvent& event) {
-    std::cout << event.GetX() << " ";
-    std::cout << event.GetY() << std::endl;
+void GLPanel::mouseMoved(wxMouseEvent& event) {
+
+    static int preX = event.GetX();
+    static int preY = event.GetY();
+
+    int deltaX = event.GetX() - preX;
+    int deltaY = event.GetY() - preY;
+
+    if(left_down && press_shift){
+        // std::cout << deltaX << " " << deltaY << std::endl;
+        glMatrixMode(GL_MODELVIEW);
+        glTranslatef(deltaX/200.0f, deltaY/200.0f, 0);
+        Refresh();
+    }
+    
+    preX = event.GetX();
+    preY = event.GetY();
 }
+
+void GLPanel::mouseDown(wxMouseEvent& event) {
+    left_down = true;
+}
+
+void GLPanel::mouseReleased(wxMouseEvent& event) {
+    left_down = false;
+}
+
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
 
     glMatrixMode(GL_MODELVIEW);
@@ -29,21 +51,21 @@ void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
 
     if(event.GetWheelRotation() > 0){
         glTranslatef(
-            event.GetWheelDelta()/100.0f * camera_x / l,
-            event.GetWheelDelta()/100.0f * camera_y / l,
-            event.GetWheelDelta()/100.0f * camera_z / l
+            event.GetWheelDelta()/200.0f * camera_x / l,
+            event.GetWheelDelta()/200.0f * camera_y / l,
+            event.GetWheelDelta()/200.0f * camera_z / l
         );
     } else {
         glTranslatef(
-            - event.GetWheelDelta()/100.0f * camera_x / l,
-            - event.GetWheelDelta()/100.0f * camera_y / l,
-            - event.GetWheelDelta()/100.0f * camera_z / l
+            - event.GetWheelDelta()/200.0f * camera_x / l,
+            - event.GetWheelDelta()/200.0f * camera_y / l,
+            - event.GetWheelDelta()/200.0f * camera_z / l
         );
     }
 
     Refresh();
 }
-void GLPanel::mouseReleased(wxMouseEvent& event) {}
+
 void GLPanel::rightClick(wxMouseEvent& event) {
     glMatrixMode(GL_MODELVIEW);
     glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
@@ -55,7 +77,6 @@ void GLPanel::keyPressed(wxKeyEvent& event) {
     switch (event.GetKeyCode()){
     case WXK_SHIFT:
         press_shift = true;
-        std::cout << "press shift key" << std::endl;
         break;
     }
 }
@@ -63,7 +84,6 @@ void GLPanel::keyReleased(wxKeyEvent& event) {
     switch (event.GetKeyCode()){
     case WXK_SHIFT:
         press_shift = false;
-        std::cout << "release shift key" << std::endl;
         break;
     }
 }
