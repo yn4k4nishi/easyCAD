@@ -6,13 +6,14 @@ void GLPanel::mouseMoved(wxMouseEvent& event) {
     static int preX = event.GetX();
     static int preY = event.GetY();
 
-    int deltaX = event.GetX() - preX;
-    int deltaY = event.GetY() - preY;
+    int deltaX =   event.GetX() - preX;
+    int deltaY = - event.GetY() + preY;
 
     if(left_down && press_shift){
         // std::cout << deltaX << " " << deltaY << std::endl;
         glMatrixMode(GL_MODELVIEW);
         glTranslatef(deltaX/200.0f, deltaY/200.0f, 0);
+        // gluLookAt();
         Refresh();
     }
     
