@@ -27,6 +27,7 @@ add_executable(${PROJECT_NAME}
     src/app.cpp
     src/frame.cpp
     src/gl_panel.cpp
+    src/camera.cpp
 ) 
 
 target_link_libraries(${PROJECT_NAME} 

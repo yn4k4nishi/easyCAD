@@ -19,15 +19,15 @@ camera::camera(){
 
 camera::~camera(){}
 
-camera::update(){
+void camera::update(){
     gluLookAt(
         x, y, z,
         focus_x, focus_y, focus_z,
         up_x, up_y, up_z
-    )
+    );
 }
 
-camera::move(float vx, float vy){
+void camera::move(float vx, float vy){
     // 画面右方向の単位ベクトルの計算
     float scr_x = (y - focus_y) * up_z - (z - focus_z) * up_y;
     float scr_y = (z - focus_z) * up_x - (x - focus_x) * up_z;
@@ -59,7 +59,7 @@ camera::move(float vx, float vy){
     update();
 }
 
-camera::rotate(float rx, float ry){
+void camera::rotate(float rx, float ry){
     // 画面右方向の単位ベクトルの計算
     float scr_x = (y - focus_y) * up_z - (z - focus_z) * up_y;
     float scr_y = (z - focus_z) * up_x - (x - focus_x) * up_z;
@@ -98,10 +98,10 @@ camera::rotate(float rx, float ry){
         + ( cos(ay)) * tz;
 }
 
-camera::zoom(float scroll){
-    l = (focus_x - x)*(focus_x - x)
-       +(focus_y - y)*(focus_y - y)
-       +(focus_z - z)*(focus_z - z);
+void camera::zoom(float scroll){
+    float l = (focus_x - x)*(focus_x - x)
+             +(focus_y - y)*(focus_y - y)
+             +(focus_z - z)*(focus_z - z);
     
     focus_x += scroll * (focus_x - x) / sqrt(l);
     focus_y += scroll * (focus_y - y) / sqrt(l);
@@ -109,9 +109,3 @@ camera::zoom(float scroll){
 
     update();
 }
-
-/* gluLookAt
- *  eye_?    : カメラの位置
- *  center_? : 見ている場所
- *  up?      : カメラ上方向のベクトル
- */
