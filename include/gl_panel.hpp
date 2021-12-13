@@ -7,12 +7,16 @@
 #include <GL/gl.h>
 
 #include <iostream>
+#include "camera.hpp"
+
 
 class GLPanel : public wxGLCanvas {
     wxGLContext* m_context;
 
 	bool press_shift = false;
 	bool left_down = false;
+
+	Camera camera;
 
 public:
 	GLPanel(wxFrame* parent, int* args);

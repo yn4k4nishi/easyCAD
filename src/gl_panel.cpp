@@ -98,7 +98,8 @@ GLint faces[6][4] = {  /* Vertex indices for the 6 faces of a cube. */
 
 
 GLPanel::GLPanel(wxFrame* parent, int* args) :
-    wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE){
+    wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE),
+    camera(){
 	m_context = new wxGLContext(this);
     // prepare a simple cube to demonstrate 3D render
     // source: http://www.opengl.org/resources/code/samples/glut_examples/examples/cube.c
@@ -144,11 +145,13 @@ void GLPanel::init(int topleft_x, int topleft_y, int bottomrigth_x, int bottomri
     float ratio_w_h = (float)(bottomrigth_x-topleft_x)/(float)(bottomrigth_y-topleft_y);
     gluPerspective(45 /*view angle*/, ratio_w_h, 0.1 /*clip close*/, 200 /*clip far*/);
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    // glLoadIdentity();
 
-    glColor4f(0,0,1,1);
-    glTranslatef(0,0,-5);
-    glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
+    // glColor4f(0,0,1,1);
+    // glTranslatef(0,0,-5);
+    // glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
+
+    camera.move(0,0);
 
     has_init = true;
 }
