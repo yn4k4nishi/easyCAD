@@ -1,13 +1,13 @@
 #include "camera.hpp"
 
-camera::camera(){
+Camera::Camera(){
     // カメラのグローバル座標
-    x = 1.0;
+    x = -5.0;
     y = 0.0;
     z = 0.0;
 
     // 焦点
-    focus_x = 0.0;
+    focus_x = -1.0;
     focus_y = 0.0;
     focus_z = 0.0;
     
@@ -17,9 +17,9 @@ camera::camera(){
     up_z = 1.0;
 }
 
-camera::~camera(){}
+Camera::~Camera(){}
 
-void camera::update(){
+void Camera::update(){
     gluLookAt(
         x, y, z,
         focus_x, focus_y, focus_z,
@@ -27,7 +27,7 @@ void camera::update(){
     );
 }
 
-void camera::move(float vx, float vy){
+void Camera::move(float vx, float vy){
     // 画面右方向の単位ベクトルの計算
     float scr_x = (y - focus_y) * up_z - (z - focus_z) * up_y;
     float scr_y = (z - focus_z) * up_x - (x - focus_x) * up_z;
@@ -59,7 +59,7 @@ void camera::move(float vx, float vy){
     update();
 }
 
-void camera::rotate(float rx, float ry){
+void Camera::rotate(float rx, float ry){
     // 画面右方向の単位ベクトルの計算
     float scr_x = (y - focus_y) * up_z - (z - focus_z) * up_y;
     float scr_y = (z - focus_z) * up_x - (x - focus_x) * up_z;
@@ -98,7 +98,7 @@ void camera::rotate(float rx, float ry){
         + ( cos(ay)) * tz;
 }
 
-void camera::zoom(float scroll){
+void Camera::zoom(float scroll){
     float l = (focus_x - x)*(focus_x - x)
              +(focus_y - y)*(focus_y - y)
              +(focus_z - z)*(focus_z - z);

@@ -5,15 +5,15 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
-class camera {
+class Camera {
 private:
     float x, y, z;
     float up_x, up_y, up_z;
     float focus_x, focus_y, focus_z;
 
 public:
-    camera();
-    ~camera();
+    Camera();
+    ~Camera();
 
     void move(float vx, float vy);
     void rotate(float rx, float ry);
