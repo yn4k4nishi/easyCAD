@@ -1,20 +1,7 @@
 #include "camera.hpp"
 
 Camera::Camera(){
-    // カメラのグローバル座標
-    x = -5.0;
-    y = 0.0;
-    z = 0.0;
-
-    // 焦点
-    focus_x = -1.0;
-    focus_y = 0.0;
-    focus_z = 0.0;
-    
-    // カメラの頭上方向のベクトル
-    up_x = 0.0;
-    up_y = 0.0;
-    up_z = 1.0;
+    back2home();
 }
 
 Camera::~Camera(){}
@@ -128,6 +115,25 @@ void Camera::zoom(float scroll){
     x += scroll * (focus_x - x) / sqrt(l);
     y += scroll * (focus_y - y) / sqrt(l);
     z += scroll * (focus_z - z) / sqrt(l);
+
+    update();
+}
+
+void Camera::back2home(){
+    // カメラのグローバル座標
+    x = -5.0;
+    y = 0.0;
+    z = 0.0;
+
+    // 焦点
+    focus_x = -1.0;
+    focus_y = 0.0;
+    focus_z = 0.0;
+    
+    // カメラの頭上方向のベクトル
+    up_x = 0.0;
+    up_y = 0.0;
+    up_z = 1.0;
 
     update();
 }

@@ -19,4 +19,5 @@ public:
     void rotate(float rx, float ry);
     void zoom(float scroll);
     void update();
+    void back2home();
 };

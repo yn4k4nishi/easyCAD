@@ -53,8 +53,13 @@ void GLPanel::keyPressed(wxKeyEvent& event) {
     case WXK_SHIFT:
         press_shift = true;
         break;
+    case 72: // h
+        camera.back2home();
+        Refresh();
+        break;
     }
 }
+
 void GLPanel::keyReleased(wxKeyEvent& event) {
     switch (event.GetKeyCode()){
     case WXK_SHIFT:
