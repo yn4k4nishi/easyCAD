@@ -10,10 +10,7 @@ void GLPanel::mouseMoved(wxMouseEvent& event) {
     int deltaY = - event.GetY() + preY;
 
     if(left_down && press_shift){
-        // std::cout << deltaX << " " << deltaY << std::endl;
-        glMatrixMode(GL_MODELVIEW);
-        glTranslatef(deltaX/200.0f, deltaY/200.0f, 0);
-        // gluLookAt();
+        camera.move(deltaX/200.0f, deltaY/200.0f);
         Refresh();
     }
     
@@ -30,46 +27,23 @@ void GLPanel::mouseReleased(wxMouseEvent& event) {
 }
 
 void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
-
-    glMatrixMode(GL_MODELVIEW);
-
-    float mat[16];
-    glGetFloatv(GL_MODELVIEW_MATRIX, mat);
-
-    /*
-        0  4  8 12 
-        1  5  9 13
-        2  6 10 14
-        3  7 11 15
-     */
-    
-    float camera_x, camera_y, camera_z;
-    camera_x = mat[0]*mat[12] + mat[1]*mat[13] + mat[ 2]*mat[14];
-    camera_y = mat[4]*mat[12] + mat[5]*mat[13] + mat[ 6]*mat[14];
-    camera_z = mat[8]*mat[12] + mat[9]*mat[13] + mat[10]*mat[14];
-
-    float l = sqrt(camera_x*camera_x + camera_y*camera_y + camera_z*camera_z);
+    float t = 1200.0;
 
     if(event.GetWheelRotation() > 0){
-        glTranslatef(
-            event.GetWheelDelta()/200.0f * camera_x / l,
-            event.GetWheelDelta()/200.0f * camera_y / l,
-            event.GetWheelDelta()/200.0f * camera_z / l
-        );
+        camera.zoom(event.GetWheelDelta()/t);
     } else {
-        glTranslatef(
-            - event.GetWheelDelta()/200.0f * camera_x / l,
-            - event.GetWheelDelta()/200.0f * camera_y / l,
-            - event.GetWheelDelta()/200.0f * camera_z / l
-        );
+        camera.zoom(-event.GetWheelDelta()/t);
     }
 
     Refresh();
 }
 
 void GLPanel::rightClick(wxMouseEvent& event) {
-    glMatrixMode(GL_MODELVIEW);
-    glRotatef(5.0f, 0.0f, 1.0f, 0.0f);
+
+    // camera.zoom(-0.1);
+    // camera.move(0.1, 0);
+    // camera.move(0, -0.1);
+    camera.rotate(0, 0.5);
 
     Refresh();
 }
@@ -151,7 +125,7 @@ void GLPanel::init(int topleft_x, int topleft_y, int bottomrigth_x, int bottomri
     // glTranslatef(0,0,-5);
     // glRotatef(50.0f, 0.0f, 1.0f, 0.0f);
 
-    camera.move(0,0);
+    camera.update();
 
     has_init = true;
 }
@@ -174,7 +148,7 @@ void GLPanel::render( wxPaintEvent& evt ){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     init(0,0,getWidth(), getHeight());
-    
+
     glColor4f(1, 0, 0, 1);
     for (int i = 0; i < 6; i++){
         glBegin(GL_LINE_STRIP);

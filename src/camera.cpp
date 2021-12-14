@@ -20,11 +20,27 @@ Camera::Camera(){
 Camera::~Camera(){}
 
 void Camera::update(){
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
     gluLookAt(
         x, y, z,
         focus_x, focus_y, focus_z,
         up_x, up_y, up_z
     );
+
+    // std::cout << "=====================" << std::endl;
+    // std::cout << "x = "       << x       << std::endl;
+    // std::cout << "y = "       << y       << std::endl;
+    // std::cout << "z = "       << z       << std::endl;
+
+    // std::cout << "focus_x = " << focus_x << std::endl;
+    // std::cout << "focus_y = " << focus_y << std::endl;
+    // std::cout << "focus_z = " << focus_z << std::endl;
+
+    // std::cout << "up_x = "    << up_x    << std::endl;
+    // std::cout << "up_y = "    << up_y    << std::endl;
+    // std::cout << "up_z = "    << up_z    << std::endl;
 }
 
 void Camera::move(float vx, float vy){
@@ -96,6 +112,8 @@ void Camera::rotate(float rx, float ry){
         + (-sin(ay)*cos(az)) * tx
         + ( sin(ay)*sin(az)) * ty
         + ( cos(ay)) * tz;
+
+    update();
 }
 
 void Camera::zoom(float scroll){
@@ -106,6 +124,10 @@ void Camera::zoom(float scroll){
     focus_x += scroll * (focus_x - x) / sqrt(l);
     focus_y += scroll * (focus_y - y) / sqrt(l);
     focus_z += scroll * (focus_z - z) / sqrt(l);
+
+    x += scroll * (focus_x - x) / sqrt(l);
+    y += scroll * (focus_y - y) / sqrt(l);
+    z += scroll * (focus_z - z) / sqrt(l);
 
     update();
 }

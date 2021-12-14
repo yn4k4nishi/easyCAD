@@ -18,6 +18,5 @@ public:
     void move(float vx, float vy);
     void rotate(float rx, float ry);
     void zoom(float scroll);
-private:
     void update();
 };
