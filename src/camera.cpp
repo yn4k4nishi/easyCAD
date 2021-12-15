@@ -62,43 +62,25 @@ void Camera::move(float vx, float vy){
     update();
 }
 
+// カメラ中心で焦点を回す．
 void Camera::rotate(float rx, float ry){
-    // 画面右方向の単位ベクトルの計算
-    float scr_x = (y - focus_y) * up_z - (z - focus_z) * up_y;
-    float scr_y = (z - focus_z) * up_x - (x - focus_x) * up_z;
-    float scr_z = (x - focus_x) * up_y - (y - focus_y) * up_x;
+    // カメラ -> 焦点 のベクトル
+    float c2f_x = focus_x - x;
+    float c2f_y = focus_y - y;
+    float c2f_z = focus_z - z;
+    
+    // 球座標への変換
+    float r = sqrt( c2f_x*c2f_x + c2f_y*c2f_y + c2f_z*c2f_z );
+    float theta = acos(z/r);
+    float phi = ((c2f_y>0) ? 1:-1) * acos(c2f_x / sqrt(c2f_x*c2f_x + c2f_y*c2f_y));
 
-    float l = sqrt(scr_x*scr_x + scr_y*scr_y + scr_z*scr_z);
-    scr_x /= l;
-    scr_y /= l;
-    scr_z /= l;
+    c2f_x = r*sin(theta)*cos(phi);
+    c2f_y = r*sin(theta)*sin(phi);
+    c2f_z = r*cos(theta);
 
-    // 焦点 -> カメラ のベクトル
-    float tx = x - focus_x; 
-    float ty = y - focus_y; 
-    float tz = z - focus_z; 
-
-    // 焦点距離 == 回転半径
-    // float r = sqrt( tx*tx + ty*ty + tz*tz );
-
-    // 回転角の計算
-    float ax = scr_x * rx + up_x * (-ry);
-    float ay = scr_y * rx + up_y * (-ry);
-    float az = scr_z * rx + up_z * (-ry);
-
-    // 回転
-    x = focus_x 
-        + ( cos(ax)*sin(ay)*cos(az) - sin(ax)*sin(az)) * tx
-        + (-cos(ax)*cos(ay)*sin(az) - sin(ax)*cos(az)) * ty
-        + ( cos(ax)*sin(ay)) * tz; 
-    y = focus_y
-        + ( sin(ax)*sin(ay)*cos(az) + cos(ax)*sin(az)) * tx
-        + (-sin(ax)*cos(ay)*sin(az) + cos(ax)*cos(az)) * ty
-        + ( sin(ax)*sin(ay)) * tz;
-    z = focus_z
-        + (-sin(ay)*cos(az)) * tx
-        + ( sin(ay)*sin(az)) * ty
-        + ( cos(ay)) * tz;
+    focus_x = x + c2f_x;
+    focus_y = y + c2f_y;
+    focus_z = z + c2f_z;
 
     update();
 }
