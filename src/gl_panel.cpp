@@ -43,7 +43,8 @@ void GLPanel::rightClick(wxMouseEvent& event) {
     // camera.zoom(-0.1);
     // camera.move(0.1, 0);
     // camera.move(0, -0.1);
-    camera.rotate(0, 0.5);
+    // camera.rotate(0.2, 0);
+    camera.rotate(0, 0.2);
 
     Refresh();
 }
@@ -99,7 +100,7 @@ GLPanel::~GLPanel(){
 
 void GLPanel::resized(wxSizeEvent& evt){
     // wxGLCanvas::OnSize(evt);	
-    
+
     Refresh();
 }
  
@@ -155,6 +156,8 @@ void GLPanel::render( wxPaintEvent& evt ){
     
     init(0,0,getWidth(), getHeight());
 
+    showGrid();
+
     glColor4f(1, 0, 0, 1);
     for (int i = 0; i < 6; i++){
         glBegin(GL_LINE_STRIP);
@@ -170,4 +173,22 @@ void GLPanel::render( wxPaintEvent& evt ){
     
     glFlush();
     SwapBuffers();
+}
+
+void GLPanel::showGrid(){
+    int size = 5;
+    
+    glColor4f(1, 1, 1, 0.5);
+    for (int i = -size; i <= size; i++){
+        glBegin(GL_LINES);
+        glVertex3i(-size, i, 0);
+        glVertex3i( size, i, 0);
+        glEnd();
+
+        glBegin(GL_LINES);
+        glVertex3i(i, -size, 0);
+        glVertex3i(i,  size, 0);
+        glEnd();
+    }
+    
 }

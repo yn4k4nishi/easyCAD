@@ -18,6 +18,8 @@ class GLPanel : public wxGLCanvas {
 
 	Camera camera;
 
+	void showGrid();
+
 public:
 	GLPanel(wxFrame* parent, int* args);
 	virtual ~GLPanel();
