@@ -20,4 +20,6 @@ public:
     void zoom(float scroll);
     void update();
     void back2home();
+
+    void plotFocusPoint();
 };

@@ -99,6 +99,7 @@ GLPanel::~GLPanel(){
 
 void GLPanel::resized(wxSizeEvent& evt){
     // wxGLCanvas::OnSize(evt);	
+    
     Refresh();
 }
  
@@ -164,6 +165,8 @@ void GLPanel::render( wxPaintEvent& evt ){
         glVertex3fv(&v[faces[i][0]][0]);
         glEnd();
     }
+
+    camera.plotFocusPoint();
     
     glFlush();
     SwapBuffers();

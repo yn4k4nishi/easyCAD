@@ -130,10 +130,18 @@ void Camera::back2home(){
     focus_y = 0.0;
     focus_z = 0.0;
     
-    // カメラの頭上方向のベクトル
     up_x = 0.0;
     up_y = 0.0;
     up_z = 1.0;
 
     update();
+}
+
+void Camera::plotFocusPoint(){
+    glColor4f(0, 1, 0, 1);
+
+    glPointSize(3);
+    glBegin(GL_POINTS);
+    glVertex3f( focus_x, focus_y, focus_z );
+    glEnd();
 }
