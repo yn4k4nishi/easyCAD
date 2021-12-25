@@ -17,6 +17,12 @@ jobs:
       - name: CMake & MSBuild
         shell: powershell
         run: |
-          mkdir build && cd build
+          mkdir build
+          cd build
           cmake ..
           msbuild INSTALL.vcxproj /t:build /p:configuration=Release /p:platform=x64 -maxcpucount
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifacts_win
+          path: build_win
