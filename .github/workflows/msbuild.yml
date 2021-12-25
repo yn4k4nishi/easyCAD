@@ -1,0 +1,22 @@
+name: MSBuild
+
+on: push
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        uses: microsoft/setup-msbuild@v1.0.2
+      - name: Vcpkg
+        run: |
+          vcpkg install tesseract:windows-static
+          vcpkg integrate install
+      - name: CMake & MSBuild
+        shell: powershell
+        run: |
+          mkdir build && cd build
+          cmake ..
+          msbuild INSTALL.vcxproj /t:build /p:configuration=Release /p:platform=x64 -maxcpucount
