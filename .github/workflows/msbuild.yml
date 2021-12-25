@@ -14,6 +14,14 @@ jobs:
         run: |
           vcpkg install tesseract:windows-static
           vcpkg integrate install
+      - name: Install wxWidget
+        run: |
+          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.5/wxWidgets-3.1.5.tar.bz2
+          tar xzvf wxWidgets-3.1.5.tar.bz2
+          cd wxWidgets-3.1.5
+          ./comfigure
+          make 
+          make install
       - name: CMake & MSBuild
         shell: powershell
         run: |
