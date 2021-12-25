@@ -39,12 +39,13 @@ void GLPanel::mouseWheelMoved(wxMouseEvent& event) {
 }
 
 void GLPanel::rightClick(wxMouseEvent& event) {
+    std::cout << "right click." << std::endl;
 
     // camera.zoom(-0.1);
     // camera.move(0.1, 0);
     // camera.move(0, -0.1);
-    // camera.rotate(0.2, 0);
-    camera.rotate(0, 0.2);
+    camera.rotate(0.2, 0);
+    // camera.rotate(0, 0.2);
 
     Refresh();
 }
