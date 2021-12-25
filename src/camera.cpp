@@ -64,24 +64,7 @@ void Camera::move(float vx, float vy){
 
 // カメラ中心で焦点を回す．
 void Camera::rotate(float rx, float ry){
-    // カメラ -> 焦点 のベクトル
-    float c2f_x = focus_x - x;
-    float c2f_y = focus_y - y;
-    float c2f_z = focus_z - z;
     
-    // 球座標への変換
-    float r = sqrt( c2f_x*c2f_x + c2f_y*c2f_y + c2f_z*c2f_z );
-    float theta = acos(z/r);
-    float phi = ((c2f_y>0) ? 1:-1) * acos(c2f_x / sqrt(c2f_x*c2f_x + c2f_y*c2f_y));
-
-    c2f_x = r*sin(theta)*cos(phi);
-    c2f_y = r*sin(theta)*sin(phi);
-    c2f_z = r*cos(theta);
-
-    focus_x = x + c2f_x;
-    focus_y = y + c2f_y;
-    focus_z = z + c2f_z;
-
     update();
 }
 

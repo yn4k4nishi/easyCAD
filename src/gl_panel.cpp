@@ -101,6 +101,8 @@ GLPanel::~GLPanel(){
 void GLPanel::resized(wxSizeEvent& evt){
     // wxGLCanvas::OnSize(evt);	
 
+    glViewport(0,0,getWidth(), getHeight());
+
     Refresh();
 }
  
