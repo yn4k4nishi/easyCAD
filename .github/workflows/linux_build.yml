@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Install wxWidgets
         run: |
-          sudo apt-add-repository 'deb https://repos.codelite.org/wx3.1.5/ubuntu/ focal universe'
           gpg --recv-key 6856E1DB1AC82609
           gpg -a --export 6856E1DB1AC82609 | sudo apt-key add -
+          sudo apt-add-repository 'deb https://repos.codelite.org/wx3.1.5/ubuntu/ focal universe'
           sudo apt update
